@@ -1,10 +1,16 @@
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express.Router();
 const { Genre, validate } = require("../models/genres.js");
 
 router.get("/", async (req, res) => {
-  const genres = await Genre.find().sort({ name: 1 });
-  res.send(genres);
+  try {
+    const genres = await Genre.find().sort({ name: 1 });
+    res.send(genres);
+  } catch (error) {
+    res.status(500).send("Something falled.");
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -14,9 +20,9 @@ router.get("/:id", async (req, res) => {
   res.send(genre);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
-
+  console.log(error);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
@@ -42,7 +48,7 @@ router.put("/:id", async (req, res) => {
   res.send(genre);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndDelete({ _id: req.params.id });
   if (!genre)
     return res.status(404).send("The genre with the given ID doesn't exist");
