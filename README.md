@@ -11,7 +11,7 @@ Key Features:
 
 - Movie Catalog: Manage a diverse collection of movies with detailed information such as titles, descriptions, genres, and rental prices. Easily add or remove movies from the catalog.
 
-- Genre Organization: Categorize movies into various genres for better discoverability. Support for creating, updating, and deleting genres.
+- Genre Organization: Categorize movies into various genres for better discoverability.Support for creating, updating, and deleting genres.
 
 - Rental Management: Facilitate the rental process with endpoints to create rentals, track rental dates, and manage return statuses.
 
